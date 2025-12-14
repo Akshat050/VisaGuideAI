@@ -115,7 +115,7 @@ function EmptyState({ onStart }) {
         <div className="heroChips">
           <Pill tone="info">DB-first</Pill>
           <Pill tone="info">Cache</Pill>
-          <Pill tone="info">AI explanation</Pill>
+          <Pill tone="info">AI fallback</Pill>
           <Pill tone="neutral">Not legal advice</Pill>
         </div>
       </div>
@@ -126,10 +126,10 @@ function EmptyState({ onStart }) {
             <span className="featureIcon">🧭</span>
             <div>
               <div className="featureTitle">Guided Requirements</div>
-              <div className="featureSub">Citizenship + destination → structured, accurate checklist.</div>
+              <div className="featureSub">Citizenship + destination → structured checklist.</div>
             </div>
           </div>
-          <div className="featureFoot">Get mandatory, recommended, and “not required” documents instantly.</div>
+          <div className="featureFoot">Get mandatory, recommended, and “not required” docs instantly.</div>
         </div>
 
         <div className="featureCard">
@@ -148,10 +148,10 @@ function EmptyState({ onStart }) {
             <span className="featureIcon">💬</span>
             <div>
               <div className="featureTitle">Context-Aware Chat</div>
-              <div className="featureSub">Ask follow-ups grounded in the selected route.</div>
+              <div className="featureSub">Follow-ups grounded in your selected route.</div>
             </div>
           </div>
-          <div className="featureFoot">No generic “I don’t know” — we guide you to the right answers.</div>
+          <div className="featureFoot">Less generic answers, more actionable steps.</div>
         </div>
       </div>
 
@@ -173,7 +173,7 @@ function Stepper({ step }) {
     <div className="stepper">
       {steps.map((s, idx) => {
         const active = s.k === step;
-        const done = steps.findIndex(x => x.k === step) > idx;
+        const done = steps.findIndex((x) => x.k === step) > idx;
         return (
           <div key={s.k} className={cx("step", active && "active", done && "done")}>
             <div className="stepDot">{done ? "✓" : idx + 1}</div>
@@ -184,6 +184,11 @@ function Stepper({ step }) {
       })}
     </div>
   );
+}
+
+// ✅ simple session id generator (for caching continuity)
+function makeSessionId() {
+  return `sess_${Date.now()}_${Math.random().toString(16).slice(2)}`;
 }
 
 export default function App() {
@@ -204,6 +209,12 @@ export default function App() {
   const [reqLoading, setReqLoading] = useState(false);
   const [reqError, setReqError] = useState("");
   const [data, setData] = useState(null);
+
+  // ✅ store route profile_id returned by /api/get-requirements
+  const [profileId, setProfileId] = useState(null);
+
+  // ✅ persist session_id so cache works across chat messages
+  const [sessionId, setSessionId] = useState(makeSessionId());
 
   // Checklist selection
   const [haveDocs, setHaveDocs] = useState({}); // {docId: boolean}
@@ -258,7 +269,7 @@ export default function App() {
   const readiness = useMemo(() => {
     const mandatory = data?.requirements?.mandatory ?? [];
     if (!mandatory.length) return 0;
-    const haveCount = mandatory.filter(d => haveDocs[d.id]).length;
+    const haveCount = mandatory.filter((d) => haveDocs[d.id]).length;
     return Math.round((haveCount / mandatory.length) * 100);
   }, [data, haveDocs]);
 
@@ -266,7 +277,10 @@ export default function App() {
     setView("requirements");
     setStep("profile");
     setData(null);
+    setProfileId(null);
     setReqError("");
+    setMessages([]);
+    setSessionId(makeSessionId()); // ✅ new session
   };
 
   const fetchRequirements = async () => {
@@ -274,6 +288,7 @@ export default function App() {
     setReqLoading(true);
     setReqError("");
     setData(null);
+    setProfileId(null);
     setHaveDocs({});
     try {
       const res = await axios.post(
@@ -281,16 +296,20 @@ export default function App() {
         { source_country: sourceCountry, destination_country: destinationCountry },
         { timeout: 20000 }
       );
+
       if (!res.data?.found) {
         setReqError("This route is not available yet. Try another combination.");
       } else {
         setData(res.data);
+        setProfileId(res.data.profile_id || null);
         setStep("requirements");
 
-        // Auto-prime checklist with mandatory docs unchecked
         const next = {};
-        (res.data?.requirements?.mandatory ?? []).forEach(d => (next[d.id] = false));
+        (res.data?.requirements?.mandatory ?? []).forEach((d) => (next[d.id] = false));
         setHaveDocs(next);
+
+        // ✅ Reset chat session when route changes (prevents cross-route confusion)
+        setSessionId(makeSessionId());
 
         // Auto-seed chat context
         setMessages([
@@ -299,7 +318,7 @@ export default function App() {
             content:
               `You’re on **${res.data.route?.visa_type}** (${res.data.route?.from} → ${res.data.route?.to}).\n` +
               `Ask me anything — I’ll answer based on this route.\n\n` +
-              `Try: **“How do I fill DS-160?”** or **“Common interview questions?”**`,
+              `Try: **“How do I apply step-by-step?”** or **“What documents should I carry?”**`,
             source: "database",
           },
         ]);
@@ -311,38 +330,38 @@ export default function App() {
     }
   };
 
+  // ✅ Key fix: never hardcode us_b1b2; always send route context properly
   const sendMessage = async () => {
     const q = input.trim();
     if (!q || chatLoading) return;
 
-    setMessages(prev => [...prev, { role: "user", content: q }]);
+    setMessages((prev) => [...prev, { role: "user", content: q }]);
     setInput("");
     setChatLoading(true);
-
-    // If you have a route selected, we keep it contextual by hinting
-    const routeHint = data?.route?.visa_type ? ` (context: ${data.route.visa_type}, ${data.route.from}→${data.route.to})` : "";
 
     try {
       const res = await axios.post(
         `${API_URL}/api/chat`,
-        { message: q + routeHint, visa_type: "us_b1b2" },
+        {
+          message: q,
+          // send route visa_type if known, otherwise null (lets backend decide)
+          visa_type: data?.route?.visa_type || null,
+          profile_id: profileId || data?.profile_id || null,
+          source_country: data?.route?.from || sourceCountry || null,
+          destination_country: data?.route?.to || destinationCountry || null,
+          session_id: sessionId,
+        },
         { timeout: 30000 }
       );
 
-      let answer = res.data?.response || "I couldn’t generate a response. Try again.";
-      // Graceful UX: avoid harsh rejection
-      if (/I don't have information/i.test(answer)) {
-        answer =
-          "I’m currently optimized for **US B1/B2** guidance. If your route is different, switch to **Requirements → Get Requirements** for that route, and I’ll guide you based on it.\n\nFor now, here are **common B1/B2 interview questions**:\n" +
-          "• Why are you traveling?\n• How long will you stay?\n• Who is paying?\n• What do you do for work?\n• Have you traveled internationally before?\n• What ties bring you back home?\n";
-      }
+      const answer = res.data?.response || "I couldn’t generate a response. Try again.";
 
-      setMessages(prev => [
+      setMessages((prev) => [
         ...prev,
         { role: "assistant", content: answer, source: res.data?.source || "ai" },
       ]);
     } catch {
-      setMessages(prev => [
+      setMessages((prev) => [
         ...prev,
         { role: "assistant", content: "Connection error. Please ensure the backend is running.", source: "ai" },
       ]);
@@ -357,9 +376,7 @@ export default function App() {
     return "Personalized requirements, checklist, and guidance.";
   }, [view]);
 
-  const routeLabel = data?.route
-    ? `${data.route.visa_type} • ${data.route.from} → ${data.route.to}`
-    : null;
+  const routeLabel = data?.route ? `${data.route.visa_type} • ${data.route.from} → ${data.route.to}` : null;
 
   const mandatory = data?.requirements?.mandatory ?? [];
   const recommended = data?.requirements?.recommended ?? [];
@@ -392,9 +409,7 @@ export default function App() {
 
         <div className="sideFoot">
           <IconBadge icon="✓" label="Always verify with official sources" />
-          <div className="sideDisclaimer">
-            Informational guidance only. Not legal advice.
-          </div>
+          <div className="sideDisclaimer">Informational guidance only. Not legal advice.</div>
         </div>
       </aside>
 
@@ -493,11 +508,8 @@ export default function App() {
               </Section>
             </div>
           ) : (
-            // Requirements view
             <>
-              {!data && step === "profile" ? (
-                <EmptyState onStart={() => setStep("profile")} />
-              ) : null}
+              {!data && step === "profile" ? <EmptyState onStart={() => setStep("profile")} /> : null}
 
               <div className="panel">
                 <Section
@@ -508,11 +520,7 @@ export default function App() {
                   <div className="formGrid">
                     <div className="field">
                       <label>Citizenship (Passport)</label>
-                      <select
-                        value={sourceCountry}
-                        onChange={(e) => setSourceCountry(e.target.value)}
-                        disabled={countriesLoading}
-                      >
+                      <select value={sourceCountry} onChange={(e) => setSourceCountry(e.target.value)} disabled={countriesLoading}>
                         {sourceCountries.map((c) => (
                           <option key={c} value={c}>
                             {c}
@@ -541,7 +549,7 @@ export default function App() {
                         {reqLoading ? "Generating…" : "Get Requirements"}
                         <span className="btnArrow">→</span>
                       </button>
-                      <div className="miniHint">DB → Cache → AI explanation</div>
+                      <div className="miniHint">DB → Cache → AI fallback</div>
                     </div>
                   </div>
 
@@ -607,12 +615,20 @@ export default function App() {
                             <input
                               type="checkbox"
                               checked={!!haveDocs[d.id]}
-                              onChange={(e) => setHaveDocs(prev => ({ ...prev, [d.id]: e.target.checked }))}
+                              onChange={(e) => setHaveDocs((prev) => ({ ...prev, [d.id]: e.target.checked }))}
                             />
                             <div className="checkMain">
                               <div className="checkTitle">
                                 {d.name}{" "}
-                                <Pill tone={d.rejection_risk === "CRITICAL" ? "danger" : d.rejection_risk === "HIGH" ? "warn" : "neutral"}>
+                                <Pill
+                                  tone={
+                                    d.rejection_risk === "CRITICAL"
+                                      ? "danger"
+                                      : d.rejection_risk === "HIGH"
+                                      ? "warn"
+                                      : "neutral"
+                                  }
+                                >
                                   {d.rejection_risk}
                                 </Pill>
                               </div>
@@ -626,9 +642,7 @@ export default function App() {
                         <button className="btnGhost" onClick={() => setView("chat")}>
                           Ask AI about forms →
                         </button>
-                        <div className="ctaHint">
-                          Tip: Ask “How to fill DS-160?” or “Interview questions for this route.”
-                        </div>
+                        <div className="ctaHint">Tip: Ask “How do I apply step-by-step?” or “What should I carry to the interview?”</div>
                       </div>
                     </Section>
                   </div>
@@ -674,7 +688,9 @@ export default function App() {
                               <div className="listTitle">{r.reason}</div>
                               <div className="listSub">Frequency: {r.frequency}</div>
                             </div>
-                            <Pill tone={r.frequency === "VERY HIGH" ? "danger" : r.frequency === "HIGH" ? "warn" : "neutral"}>
+                            <Pill
+                              tone={r.frequency === "VERY HIGH" ? "danger" : r.frequency === "HIGH" ? "warn" : "neutral"}
+                            >
                               {r.frequency}
                             </Pill>
                           </div>

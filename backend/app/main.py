@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from fastapi import FastAPI, Depends, HTTPException, UploadFile, File
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import text
@@ -14,7 +14,7 @@ from pydantic import BaseModel
 from typing import Optional
 import uuid
 
-app = FastAPI(title="VisaGuide AI API", version="2.0.0")
+app = FastAPI(title="VisaGuide AI API", version="2.1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -33,7 +33,7 @@ class ProfileRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return {"message": "VisaGuide AI API v2.0", "status": "running"}
+    return {"message": "VisaGuide AI API", "status": "running"}
 
 @app.get("/health")
 def health_check(db: Session = Depends(get_db)):
@@ -43,20 +43,38 @@ def health_check(db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Unhealthy: {str(e)}")
 
+
+# ✅ PATCHED: /api/chat now passes route context too
 @app.post("/api/chat", response_model=ChatResponse)
 def chat(request: ChatRequest, db: Session = Depends(get_db)):
     try:
         session_id = request.session_id or str(uuid.uuid4())
+
+        # ---- Route context (preferred) ----
+        # If frontend sends these, AI can be grounded even if DB keys change.
+        source_country = getattr(request, "source_country", None)
+        destination_country = getattr(request, "destination_country", None)
+        residence_country = getattr(request, "residence_country", None)
+        employment_status = getattr(request, "employment_status", None)
+
         response = ai_engine.get_response(
             question=request.message,
             visa_type=request.visa_type,
             session_id=session_id,
-            db=db
+            db=db,
+            profile_id=request.profile_id,
+            source_country=source_country,
+            destination_country=destination_country,
+            residence_country=residence_country,
+            employment_status=employment_status,
         )
+
         return response
+
     except Exception as e:
         print(f"Chat error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 # NEW: Profile/Country endpoints
 @app.get("/api/countries")
@@ -66,6 +84,7 @@ def get_available_countries(db: Session = Depends(get_db)):
         return profile_matcher.get_available_countries(db)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @app.post("/api/get-requirements")
 def get_requirements(request: ProfileRequest, db: Session = Depends(get_db)):
@@ -82,12 +101,13 @@ def get_requirements(request: ProfileRequest, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.get("/api/visa-info/{visa_type}")
 def get_visa_info(visa_type: str, db: Session = Depends(get_db)):
     visa_data = db.query(VisaRequirement).filter(VisaRequirement.visa_type == visa_type).first()
     if not visa_data:
         raise HTTPException(status_code=404, detail="Visa type not found")
-    
+
     return {
         "visa_type": visa_type,
         "visa_info": visa_data.requirements.get('visa_info', {}),
@@ -96,6 +116,7 @@ def get_visa_info(visa_type: str, db: Session = Depends(get_db)):
         "last_updated": str(visa_data.last_verified_date)
     }
 
+
 @app.get("/api/quick-questions/{visa_type}")
 def get_quick_questions(visa_type: str, db: Session = Depends(get_db)):
     questions = db.query(VisaQA).filter(VisaQA.visa_type == visa_type).limit(10).all()
@@ -103,6 +124,7 @@ def get_quick_questions(visa_type: str, db: Session = Depends(get_db)):
         "visa_type": visa_type,
         "questions": [{"question": q.question, "answer": q.answer, "category": q.category} for q in questions]
     }
+
 
 if __name__ == "__main__":
     import uvicorn
