@@ -1,0 +1,148 @@
+{
+  "bank_statements": [
+    {
+      "id": "good",
+      "name": "Sample Bank Statement - Good.pdf",
+      "description": "Well-prepared statement with all requirements",
+      "analysis": {
+        "score": 95,
+        "status": "excellent",
+        "issues": [
+          {
+            "type": "success",
+            "severity": "none",
+            "item": "Period Coverage",
+            "details": "6 months covered (Jan 2024 - June 2024) ✓"
+          },
+          {
+            "type": "success",
+            "severity": "none",
+            "item": "Bank Stamp",
+            "details": "All 6 pages properly stamped ✓"
+          },
+          {
+            "type": "success",
+            "severity": "none",
+            "item": "Income Pattern",
+            "details": "Consistent salary deposits of ₹52,000/month ✓"
+          },
+          {
+            "type": "success",
+            "severity": "none",
+            "item": "Balance",
+            "details": "Average balance ₹3,85,000 (adequate for 2-week trip) ✓"
+          },
+          {
+            "type": "warning",
+            "severity": "minor",
+            "item": "Recommendation",
+            "details": "Consider getting a letter explaining the ₹25,000 cash withdrawal on May 15"
+          }
+        ],
+        "summary": "Excellent document! Ready for submission.",
+        "actions": [
+          "Optional: Add brief note about May 15 withdrawal (likely ATM, but good to clarify)"
+        ]
+      }
+    },
+    {
+      "id": "medium",
+      "name": "Sample Bank Statement - Needs Work.pdf",
+      "description": "Common issues that need fixing",
+      "analysis": {
+        "score": 68,
+        "status": "needs_work",
+        "issues": [
+          {
+            "type": "success",
+            "severity": "none",
+            "item": "Period Coverage",
+            "details": "6 months covered (Jan 2024 - June 2024) ✓"
+          },
+          {
+            "type": "error",
+            "severity": "critical",
+            "item": "Bank Stamp",
+            "details": "MISSING stamps on pages 2, 4, and 5 ✗"
+          },
+          {
+            "type": "success",
+            "severity": "none",
+            "item": "Income Pattern",
+            "details": "Consistent salary deposits of ₹48,000/month ✓"
+          },
+          {
+            "type": "warning",
+            "severity": "high",
+            "item": "Large Deposit",
+            "details": "⚠️ Unusual deposit of ₹2,50,000 on March 15 (needs explanation)"
+          },
+          {
+            "type": "success",
+            "severity": "none",
+            "item": "Balance",
+            "details": "Average balance ₹3,42,000 (adequate) ✓"
+          }
+        ],
+        "summary": "Document has fixable issues. High rejection risk without corrections.",
+        "actions": [
+          "CRITICAL: Visit bank and get stamp/attestation on pages 2, 4, and 5",
+          "IMPORTANT: Write explanation letter for ₹2.5L deposit (Was it bonus? Loan repayment? Gift?)",
+          "Get supporting document for the deposit (bonus letter, loan docs, gift deed, etc.)",
+          "After fixes, your score will be 92/100"
+        ]
+      }
+    },
+    {
+      "id": "poor",
+      "name": "Sample Bank Statement - High Risk.pdf",
+      "description": "Multiple serious issues",
+      "analysis": {
+        "score": 42,
+        "status": "high_risk",
+        "issues": [
+          {
+            "type": "error",
+            "severity": "critical",
+            "item": "Period Coverage",
+            "details": "Only 3 months covered (April - June 2024). Need 6 months! ✗"
+          },
+          {
+            "type": "error",
+            "severity": "critical",
+            "item": "Bank Stamp",
+            "details": "NO bank stamps on any pages ✗"
+          },
+          {
+            "type": "warning",
+            "severity": "high",
+            "item": "Income Pattern",
+            "details": "Irregular deposits - no clear salary pattern ⚠️"
+          },
+          {
+            "type": "error",
+            "severity": "critical",
+            "item": "Balance",
+            "details": "Average balance ₹28,000 - too low for visa requirements ✗"
+          },
+          {
+            "type": "error",
+            "severity": "critical",
+            "item": "Multiple Large Deposits",
+            "details": "Several deposits over ₹50,000 with no explanation ✗"
+          }
+        ],
+        "summary": "VERY HIGH REJECTION RISK. Multiple critical issues need immediate attention.",
+        "actions": [
+          "URGENT: Get 6-month statement (go back to January 2024 minimum)",
+          "CRITICAL: Get all pages stamped/attested by bank",
+          "REQUIRED: If employed, get employment letter showing regular salary",
+          "REQUIRED: Explain all large deposits with supporting documents",
+          "Consider postponing application until you can show 6+ months of stable income",
+          "Current balance too low - aim for ₹3,00,000+ average",
+          "After ALL fixes, estimated score: 78/100 (still needs improvement)"
+        ]
+      }
+    }
+  ]
+}

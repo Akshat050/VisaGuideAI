@@ -1,0 +1,269 @@
+{
+  "metadata": {
+    "created": "2024-12-14",
+    "version": "1.1",
+    "total_profiles": 5,
+    "disclaimer": "Data based on general knowledge as of Jan 2025. Verify with official sources."
+  },
+  "profiles": [
+    {
+      "id": "IN_IN_US_B1B2_EMPLOYED",
+      "enabled": true,
+      "profile_metadata": {
+        "source_country": "India",
+        "source_country_code": "IN",
+        "residence_country": "India",
+        "destination_country": "United States",
+        "destination_code": "US",
+        "visa_type": "B1/B2",
+        "visa_name": "Tourist/Business Visitor",
+        "employment_status": "employed",
+        "last_verified": "TEMPLATE_2024-12-14",
+        "verification_status": "TEMPLATE_ONLY"
+      },
+      "quick_facts": {
+        "visa_fee_usd": 185,
+        "processing_days": "3-5 after interview",
+        "validity_typical": "10 years",
+        "interview_required": true
+      },
+      "requirements": {
+        "mandatory_documents": [
+          {"id": "passport", "name": "Valid Passport", "priority": 1, "requirement": "6+ months validity", "rejection_risk": "CRITICAL"},
+          {"id": "ds160", "name": "DS-160 Confirmation", "priority": 2, "requirement": "Completed online form", "rejection_risk": "CRITICAL"},
+          {"id": "bank", "name": "Bank Statements (6mo)", "priority": 3, "requirement": "All pages stamped", "rejection_risk": "CRITICAL"},
+          {"id": "fee", "name": "Visa Fee Receipt", "priority": 4, "requirement": "$185 payment proof", "rejection_risk": "CRITICAL"},
+          {"id": "photo", "name": "2x2 Photo", "priority": 5, "requirement": "White background", "rejection_risk": "MEDIUM"}
+        ],
+        "strongly_recommended": [
+          {"id": "employment", "name": "Employment Letter", "importance": "HIGH"},
+          {"id": "itr", "name": "ITR (2-3 years)", "importance": "HIGH"},
+          {"id": "property", "name": "Property Documents", "importance": "VERY HIGH"}
+        ],
+        "not_required": [
+          {"document": "Flight tickets", "reason": "Don't book before approval"},
+          {"document": "Yellow fever certificate", "reason": "Not required India→USA"}
+        ]
+      },
+      "interview": {
+        "required": true,
+        "duration_typical": "2-5 minutes",
+        "locations": ["New Delhi", "Mumbai", "Chennai", "Hyderabad", "Kolkata"]
+      },
+      "success_factors": ["Stable employment", "Property ownership", "Previous travel"],
+      "rejection_reasons": [
+        {"reason": "Missing bank stamps", "frequency": "VERY HIGH"},
+        {"reason": "Insufficient funds", "frequency": "HIGH"}
+      ],
+      "india_specific_tips": ["Property docs highly valued", "Bank stamp #1 rejection reason"],
+      "timeline": {"total": "1.5-2.5 months"}
+    },
+    {
+      "id": "IN_IN_UK_TOURIST",
+      "enabled": true,
+      "profile_metadata": {
+        "source_country": "India",
+        "source_country_code": "IN",
+        "residence_country": "India",
+        "destination_country": "United Kingdom",
+        "destination_code": "GB",
+        "visa_type": "Standard Visitor",
+        "visa_name": "UK Tourist Visa",
+        "employment_status": "employed",
+        "last_verified": "TEMPLATE_2024-12-14",
+        "verification_status": "TEMPLATE_ONLY"
+      },
+      "quick_facts": {
+        "visa_fee_usd": 130,
+        "processing_days": "15-20 working days",
+        "validity_typical": "6 months",
+        "interview_required": false
+      },
+      "requirements": {
+        "mandatory_documents": [
+          {"id": "passport", "name": "Valid Passport", "priority": 1, "requirement": "6+ months validity", "rejection_risk": "CRITICAL"},
+          {"id": "bank", "name": "Bank Statements (6mo)", "priority": 2, "requirement": "All pages stamped", "rejection_risk": "CRITICAL"},
+          {"id": "employment", "name": "Employment Letter", "priority": 3, "requirement": "On company letterhead", "rejection_risk": "HIGH"},
+          {"id": "itr", "name": "ITR (3 years)", "priority": 4, "requirement": "Last 3 years", "rejection_risk": "HIGH"},
+          {"id": "fee", "name": "Visa Fee Payment", "priority": 5, "requirement": "£115 (~₹12,000)", "rejection_risk": "CRITICAL"}
+        ],
+        "strongly_recommended": [
+          {"id": "property", "name": "Property Documents", "importance": "HIGH"},
+          {"id": "travel_history", "name": "Previous Travel", "importance": "HIGH"},
+          {"id": "itinerary", "name": "Travel Itinerary", "importance": "MEDIUM"}
+        ],
+        "not_required": [
+          {"document": "Interview", "reason": "No interview for standard visitor"},
+          {"document": "Hotel bookings", "reason": "Tentative plans acceptable"}
+        ]
+      },
+      "interview": {
+        "required": false,
+        "note": "Biometric appointment required at VFS"
+      },
+      "success_factors": ["Strong financial proof", "Previous UK/Schengen travel", "Clear travel purpose"],
+      "rejection_reasons": [
+        {"reason": "Weak financial proof", "frequency": "HIGH"},
+        {"reason": "No travel history", "frequency": "MEDIUM"}
+      ],
+      "india_specific_tips": ["UK values travel history more than US", "ITR very important", "Property docs strengthen application"],
+      "timeline": {"total": "1-1.5 months"}
+    },
+    {
+      "id": "IN_IN_CA_TOURIST",
+      "enabled": true,
+      "profile_metadata": {
+        "source_country": "India",
+        "source_country_code": "IN",
+        "residence_country": "India",
+        "destination_country": "Canada",
+        "destination_code": "CA",
+        "visa_type": "TRV",
+        "visa_name": "Temporary Resident Visa (Tourist)",
+        "employment_status": "employed",
+        "last_verified": "TEMPLATE_2024-12-14",
+        "verification_status": "TEMPLATE_ONLY"
+      },
+      "quick_facts": {
+        "visa_fee_usd": 100,
+        "processing_days": "15-30 days",
+        "validity_typical": "10 years (multiple entry)",
+        "interview_required": false
+      },
+      "requirements": {
+        "mandatory_documents": [
+          {"id": "passport", "name": "Valid Passport", "priority": 1, "requirement": "Valid throughout stay", "rejection_risk": "CRITICAL"},
+          {"id": "bank", "name": "Bank Statements (6mo)", "priority": 2, "requirement": "Last 6 months", "rejection_risk": "CRITICAL"},
+          {"id": "employment", "name": "Employment Letter", "priority": 3, "requirement": "With salary details", "rejection_risk": "HIGH"},
+          {"id": "itr", "name": "ITR (2 years)", "priority": 4, "requirement": "Last 2 years", "rejection_risk": "HIGH"},
+          {"id": "purpose", "name": "Purpose of Visit Letter", "priority": 5, "requirement": "Detailed itinerary", "rejection_risk": "HIGH"}
+        ],
+        "strongly_recommended": [
+          {"id": "property", "name": "Property Documents", "importance": "HIGH"},
+          {"id": "family", "name": "Family Ties Proof", "importance": "MEDIUM"},
+          {"id": "travel_history", "name": "Previous Visas", "importance": "HIGH"}
+        ],
+        "not_required": [
+          {"document": "Interview", "reason": "Usually no interview required"},
+          {"document": "Flight tickets", "reason": "Don't book before approval"}
+        ]
+      },
+      "interview": {
+        "required": false,
+        "note": "Biometrics required at VFS"
+      },
+      "success_factors": ["Strong ties to India", "Good travel history", "Clear purpose"],
+      "rejection_reasons": [
+        {"reason": "Lack of ties to home country", "frequency": "HIGH"},
+        {"reason": "Insufficient funds", "frequency": "MEDIUM"}
+      ],
+      "india_specific_tips": ["Canada values family ties", "Purpose letter very important", "Travel history helps significantly"],
+      "timeline": {"total": "1-2 months"}
+    },
+    {
+      "id": "CN_CN_US_B1B2",
+      "enabled": true,
+      "profile_metadata": {
+        "source_country": "China",
+        "source_country_code": "CN",
+        "residence_country": "China",
+        "destination_country": "United States",
+        "destination_code": "US",
+        "visa_type": "B1/B2",
+        "visa_name": "Tourist/Business Visitor",
+        "employment_status": "employed",
+        "last_verified": "TEMPLATE_2024-12-14",
+        "verification_status": "TEMPLATE_ONLY"
+      },
+      "quick_facts": {
+        "visa_fee_usd": 185,
+        "processing_days": "3-5 after interview",
+        "validity_typical": "10 years",
+        "interview_required": true
+      },
+      "requirements": {
+        "mandatory_documents": [
+          {"id": "passport", "name": "Valid Passport", "priority": 1, "requirement": "6+ months validity", "rejection_risk": "CRITICAL"},
+          {"id": "ds160", "name": "DS-160 Confirmation", "priority": 2, "requirement": "Completed online", "rejection_risk": "CRITICAL"},
+          {"id": "bank", "name": "Bank Statements (6mo)", "priority": 3, "requirement": "Last 6 months", "rejection_risk": "CRITICAL"},
+          {"id": "hukou", "name": "Hukou (户口本)", "priority": 4, "requirement": "Household registration", "rejection_risk": "HIGH"},
+          {"id": "fee", "name": "Visa Fee Receipt", "priority": 5, "requirement": "$185 payment", "rejection_risk": "CRITICAL"}
+        ],
+        "strongly_recommended": [
+          {"id": "employment", "name": "Employment Certificate", "importance": "HIGH"},
+          {"id": "property", "name": "Property Deed", "importance": "HIGH"},
+          {"id": "marriage", "name": "Marriage Certificate", "importance": "MEDIUM"}
+        ],
+        "not_required": [
+          {"document": "Flight tickets", "reason": "Not required before approval"},
+          {"document": "Hotel bookings", "reason": "Tentative plans OK"}
+        ]
+      },
+      "interview": {
+        "required": true,
+        "duration_typical": "3-5 minutes",
+        "locations": ["Beijing", "Shanghai", "Guangzhou", "Chengdu", "Shenyang"]
+      },
+      "success_factors": ["Stable employment", "Property ownership", "Family ties in China"],
+      "rejection_reasons": [
+        {"reason": "Suspected immigrant intent", "frequency": "HIGH"},
+        {"reason": "Weak ties to China", "frequency": "HIGH"}
+      ],
+      "india_specific_tips": ["Hukou required (unique to China)", "Property very important", "Family ties critical"],
+      "timeline": {"total": "1.5-2 months"}
+    },
+    {
+      "id": "NG_NG_US_B1B2",
+      "enabled": true,
+      "profile_metadata": {
+        "source_country": "Nigeria",
+        "source_country_code": "NG",
+        "residence_country": "Nigeria",
+        "destination_country": "United States",
+        "destination_code": "US",
+        "visa_type": "B1/B2",
+        "visa_name": "Tourist/Business Visitor",
+        "employment_status": "employed",
+        "last_verified": "TEMPLATE_2024-12-14",
+        "verification_status": "TEMPLATE_ONLY"
+      },
+      "quick_facts": {
+        "visa_fee_usd": 185,
+        "processing_days": "5-10 after interview",
+        "validity_typical": "5-10 years",
+        "interview_required": true
+      },
+      "requirements": {
+        "mandatory_documents": [
+          {"id": "passport", "name": "Valid Passport", "priority": 1, "requirement": "6+ months validity", "rejection_risk": "CRITICAL"},
+          {"id": "ds160", "name": "DS-160 Confirmation", "priority": 2, "requirement": "Completed online", "rejection_risk": "CRITICAL"},
+          {"id": "yellow_fever", "name": "Yellow Fever Certificate", "priority": 3, "requirement": "Vaccination proof", "rejection_risk": "CRITICAL"},
+          {"id": "bank", "name": "Bank Statements (6mo)", "priority": 4, "requirement": "Higher balance required", "rejection_risk": "CRITICAL"},
+          {"id": "fee", "name": "Visa Fee Receipt", "priority": 5, "requirement": "$185 payment", "rejection_risk": "CRITICAL"}
+        ],
+        "strongly_recommended": [
+          {"id": "employment", "name": "Employment Letter", "importance": "VERY HIGH"},
+          {"id": "property", "name": "Property Documents", "importance": "VERY HIGH"},
+          {"id": "sponsor", "name": "Sponsor Letter (if applicable)", "importance": "HIGH"}
+        ],
+        "not_required": [
+          {"document": "Flight tickets", "reason": "Not required"},
+          {"document": "Hotel bookings", "reason": "Tentative OK"}
+        ]
+      },
+      "interview": {
+        "required": true,
+        "duration_typical": "5-10 minutes",
+        "locations": ["Lagos", "Abuja"],
+        "note": "Stricter scrutiny than some other countries"
+      },
+      "success_factors": ["Very strong financial proof", "Property ownership essential", "Clear return plans"],
+      "rejection_reasons": [
+        {"reason": "Insufficient financial proof", "frequency": "VERY HIGH"},
+        {"reason": "Weak ties to Nigeria", "frequency": "HIGH"}
+      ],
+      "india_specific_tips": ["Yellow fever cert REQUIRED (unique to Nigeria)", "Higher financial threshold", "Strong ties extremely important"],
+      "timeline": {"total": "2-3 months"}
+    }
+  ]
+}

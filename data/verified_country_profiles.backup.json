@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "created": "2024-12-14",
+    "version": "1.0",
+    "total_profiles": 1,
+    "disclaimer": "IMPORTANT: This data is based on general knowledge as of Jan 2025. YOU MUST VERIFY against official sources before using in production. Always direct users to official government websites.",
+    "verification_required": true
+  },
+  "profiles": [
+    {
+      "id": "IN_IN_US_B1B2_EMPLOYED",
+      "enabled": true,
+      "profile_metadata": {
+        "source_country": "India",
+        "source_country_code": "IN",
+        "residence_country": "India",
+        "destination_country": "United States",
+        "destination_code": "US",
+        "visa_type": "B1/B2",
+        "visa_name": "Tourist/Business Visitor",
+        "employment_status": "employed",
+        "created_date": "2024-12-14",
+        "last_verified": "NEEDS_VERIFICATION",
+        "verified_by_user": false,
+        "verification_status": "TEMPLATE_ONLY",
+        "confidence_level": "MEDIUM",
+        "official_sources": [
+          "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visitor.html",
+          "https://ustraveldocs.com/in/",
+          "https://in.usembassy.gov/"
+        ],
+        "notes": "Based on standard B1/B2 requirements. MUST be verified against current official sources."
+      },
+      "quick_facts": {
+        "visa_fee_usd": 185,
+        "processing_days": "3-5 after interview",
+        "validity_typical": "10 years",
+        "interview_required": true,
+        "approval_rate_estimate": "70-80% for well-prepared Indian applicants"
+      },
+      "requirements": {
+        "mandatory_documents": [
+          {
+            "id": "passport",
+            "name": "Valid Passport",
+            "priority": 1,
+            "requirement": "Valid for at least 6 months beyond intended stay",
+            "format": "Original passport with minimum 2 blank pages",
+            "why_needed": "Primary identity document required by US immigration",
+            "specifications": {
+              "validity": "6 months beyond stay",
+              "blank_pages": 2,
+              "condition": "No damage or torn pages"
+            },
+            "common_mistakes": [
+              "Passport expiring within 6 months",
+              "Damaged pages",
+              "No blank pages for visa stamp"
+            ],
+            "rejection_risk": "CRITICAL"
+          },
+          {
+            "id": "ds160",
+            "name": "DS-160 Confirmation",
+            "priority": 2,
+            "requirement": "Completed online visa application",
+            "format": "Printed confirmation with barcode",
+            "why_needed": "Official US visa application form",
+            "how_to_complete": "https://ceac.state.gov/genniv/",
+            "time_required": "60-90 minutes",
+            "common_mistakes": [
+              "Name different from passport",
+              "Lost application ID",
+              "Photo not uploaded",
+              "Session timeout"
+            ],
+            "rejection_risk": "CRITICAL",
+            "tips": [
+              "Save application ID immediately",
+              "Match passport name exactly",
+              "Complete in one sitting if possible"
+            ]
+          },
+          {
+            "id": "bank_statements",
+            "name": "Bank Statements (6 months)",
+            "priority": 3,
+            "requirement": "6 consecutive months of statements",
+            "format": "All pages stamped by bank",
+            "why_needed": "Prove financial ability and ties to India",
+            "indian_specific": true,
+            "specifications": {
+              "duration": "6 consecutive months minimum",
+              "attestation": "Every page must have bank stamp",
+              "currency": "INR",
+              "recommended_balance": "₹2,50,000 - ₹4,00,000 average"
+            },
+            "what_officers_check": [
+              "Regular salary deposits",
+              "Sufficient balance for trip",
+              "No large sudden deposits",
+              "Consistent transactions"
+            ],
+            "red_flags": [
+              "Large deposits before application",
+              "Low balance jumping suddenly",
+              "No income pattern",
+              "Account too new"
+            ],
+            "common_mistakes": [
+              "Missing stamp on any page",
+              "Only 3-4 months provided",
+              "Unexplained large deposits",
+              "Balance too low"
+            ],
+            "rejection_risk": "CRITICAL",
+            "tip": "Get ALL pages stamped at bank branch. Check before leaving!"
+          },
+          {
+            "id": "visa_fee",
+            "name": "Visa Fee Receipt",
+            "priority": 4,
+            "requirement": "Proof of MRV fee payment",
+            "amount_usd": 185,
+            "amount_inr_approx": 15500,
+            "payment_methods": ["Axis Bank", "NEFT/IMPS"],
+            "non_refundable": true,
+            "validity_days": 365,
+            "rejection_risk": "CRITICAL"
+          },
+          {
+            "id": "photo",
+            "name": "2x2 inch Photo",
+            "priority": 5,
+            "requirement": "Recent photo meeting US specifications",
+            "specifications": {
+              "size": "2x2 inches (51x51mm)",
+              "background": "White or off-white",
+              "recency": "Within 6 months",
+              "quality": "High resolution"
+            },
+            "not_acceptable": [
+              "Selfies",
+              "Colored backgrounds",
+              "Filters/editing",
+              "Old photos"
+            ],
+            "rejection_risk": "MEDIUM",
+            "tip": "Go to professional studio, say 'US visa 2x2 white background'"
+          }
+        ],
+        "strongly_recommended": [
+          {
+            "id": "employment_letter",
+            "name": "Employment Letter",
+            "importance": "HIGH",
+            "why": "Proves job to return to (strong tie to India)",
+            "must_include": [
+              "Full name and designation",
+              "Date of joining",
+              "Current salary",
+              "Leave approval dates",
+              "Return to work statement",
+              "HR contact details"
+            ],
+            "format": "Company letterhead, signed, stamped",
+            "date_requirement": "Within 1-2 weeks of interview",
+            "tip": "Salary must match bank deposits"
+          },
+          {
+            "id": "itr",
+            "name": "Income Tax Returns",
+            "importance": "HIGH",
+            "requirement": "Last 2-3 years",
+            "documents": [
+              "ITR Acknowledgment",
+              "Form 26AS",
+              "Form 16 (if salaried)"
+            ],
+            "why": "Proves legitimate income and tax compliance",
+            "indian_specific": true
+          },
+          {
+            "id": "property",
+            "name": "Property Documents",
+            "importance": "VERY HIGH",
+            "why": "Strongest proof of ties to India",
+            "acceptable": [
+              "Property sale deed",
+              "Property tax receipts",
+              "7/12 extract",
+              "Flat ownership papers"
+            ],
+            "tip": "Property ownership greatly strengthens Indian applications"
+          }
+        ],
+        "not_required": [
+          {
+            "document": "Flight tickets",
+            "reason": "Don't book until visa approved",
+            "misconception": "Many think tickets needed before interview"
+          },
+          {
+            "document": "Hotel bookings",
+            "reason": "Tentative plans sufficient"
+          },
+          {
+            "document": "Yellow fever certificate",
+            "reason": "Not required India→USA"
+          }
+        ]
+      },
+      "interview": {
+        "required": true,
+        "duration_typical": "2-5 minutes",
+        "locations": ["New Delhi", "Mumbai", "Chennai", "Hyderabad", "Kolkata"],
+        "common_questions": [
+          "Why do you want to visit the USA?",
+          "What do you do for work?",
+          "Who is paying for your trip?",
+          "How long will you stay?",
+          "Do you have family in USA?",
+          "What will you do after returning?"
+        ],
+        "tips": [
+          "Be confident and honest",
+          "Brief, direct answers",
+          "Maintain eye contact",
+          "Have documents ready"
+        ]
+      },
+      "success_factors": [
+        "Stable employment 2+ years",
+        "Property ownership",
+        "Previous international travel",
+        "Consistent bank balance",
+        "Clear return plans",
+        "Strong family ties in India"
+      ],
+      "rejection_reasons": [
+        {
+          "reason": "Missing bank stamps",
+          "frequency": "VERY HIGH",
+          "prevention": "Check every page before leaving bank"
+        },
+        {
+          "reason": "Insufficient funds",
+          "frequency": "HIGH",
+          "prevention": "Maintain good balance for 6+ months"
+        },
+        {
+          "reason": "Immigrant intent suspected",
+          "frequency": "MEDIUM",
+          "prevention": "Show strong ties (job, property, family)"
+        }
+      ],
+      "india_specific_tips": [
+        "Property documents highly valued",
+        "Bank attestation #1 rejection reason",
+        "ITR shows tax compliance",
+        "Form 16 validates employment",
+        "If married, spouse documents show family ties"
+      ],
+      "timeline": {
+        "planning": "2-3 months before travel",
+        "document_collection": "2-4 weeks",
+        "ds160_completion": "1-2 days",
+        "appointment_wait": "2-4 weeks",
+        "decision_after_interview": "3-5 days",
+        "passport_return": "5-7 days",
+        "total": "1.5-2.5 months"
+      }
+    }
+  ]
+}

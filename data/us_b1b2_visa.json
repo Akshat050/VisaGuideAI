@@ -1,0 +1,24 @@
+{
+  "visa_info": {
+    "type": "US B1/B2 Tourist/Business Visa",
+    "source_country": "India",
+    "target_country": "USA",
+    "last_updated": "2024-12-14",
+    "official_source": "https://travel.state.gov/",
+    "typical_processing_time": "3-5 weeks",
+    "fee_usd": 185
+  },
+  "required_documents": [
+    {"id": "passport", "name": "Valid Passport", "mandatory": true, "rejection_risk": "critical"},
+    {"id": "ds160", "name": "DS-160 Confirmation", "mandatory": true, "rejection_risk": "critical"},
+    {"id": "bank_statements", "name": "Bank Statements (6 months)", "mandatory": true, "rejection_risk": "critical"},
+    {"id": "photo", "name": "2x2 inch Photo", "mandatory": true, "rejection_risk": "medium"},
+    {"id": "employment_letter", "name": "Employment Letter", "mandatory": false, "rejection_risk": "medium"}
+  ],
+  "common_questions": [
+    {"question": "How much bank balance do I need?", "short_answer": "$3,000-5,000 minimum", "detailed_answer": "Typically $3,000-5,000 USD. Show 6 months consistent salary, no large sudden deposits.", "category": "financial"},
+    {"question": "Do I need property documents?", "short_answer": "Not mandatory but highly recommended", "detailed_answer": "Property ownership proves ties to India. Strengthens application significantly.", "category": "documents"},
+    {"question": "What is the visa fee?", "short_answer": "$185 USD, non-refundable", "detailed_answer": "$185 USD (₹15,400 approx). NON-REFUNDABLE whether approved or rejected.", "category": "fees"},
+    {"question": "How long does processing take?", "short_answer": "3-5 weeks typically", "detailed_answer": "3-5 weeks from interview to visa. During peak season (May-Aug), 6-8 weeks.", "category": "timing"}
+  ]
+}
